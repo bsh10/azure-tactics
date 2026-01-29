@@ -72,13 +72,23 @@ You can generate one by:
 
 Once created, pass the token to the tool using the `--token` option.
 
-### Example usage
+### Default regex search (best results)
 ```bash
 python3 github-azure-secret-search.py --token GITHUB_TOKEN
+```
 
-python3 github-azure-secret-search.py --token GITHUB_TOKEN --search "AZURE_CLIENT_SECRET OR filename:.env"
+### Custom keyword-based search
+```bash
+python3 github-azure-secret-search.py \
+  --token GITHUB_TOKEN \
+  --search "AZURE_CLIENT_SECRET OR filename:.env"
+```
 
-python3 github-azure-secret-search.py -t GITHUB_TOKEN -r "\b[A-Z_]*CLIENT_SECRET\s*=\s*[A-Za-z0-9.~]{32,64}\b"
+### Custom regular expression search
+```bash
+python3 github-azure-secret-search.py \
+  -t GITHUB_TOKEN \
+  -r "\b[A-Z_]*CLIENT_SECRET\s*=\s*[A-Za-z0-9.~]{32,64}\b"
 ```
 
 ---
@@ -98,7 +108,10 @@ This allows determination of what an application can actually do, rather than re
 
 ### Example usage
 ```bash
-python3 azure-sp-inspector.py   -t <tenant_id>   -c <client_id>   -s <client_secret>
+python3 azure-sp-inspector.py \
+  -t TENANT_ID \
+  -c CLIENT_ID \
+  -s CLIENT_SECRET
 ```
 
 ---
@@ -143,12 +156,14 @@ These defaults are designed to balance coverage and signal quality and can be ov
 
 ### Search using default keywords
 ```bash
-python3 azure-sharepoint-secret-search.py --token GRAPH_ACCESS_TOKEN
+python3 azure-sharepoint-secret-search.py --token JWT_ACCESS_TOKEN
 ```
 
 ### Search with custom keywords
 ```bash
-python3 azure-sharepoint-secret-search.py   --token GRAPH_ACCESS_TOKEN   --keywords 'password,secret,apikey'
+python3 azure-sharepoint-secret-search.py \
+  --token JWT_ACCESS_TOKEN \
+  --keywords 'password,secret,apikey'
 ```
 
 ### Drive and file extraction workflow
@@ -163,17 +178,25 @@ The tool will enumerate all files within the drive and generate direct Microsoft
 
 ### Dump entire SharePoint drive
 ```bash
-python3 azure-sharepoint-secret-search.py   --token GRAPH_ACCESS_TOKEN   --drive-id DRIVE_ID
+python3 azure-sharepoint-secret-search.py \
+  --token JWT_ACCESS_TOKEN \
+  --drive-id DRIVE_ID
 ```
 
 ### Dump a specific file
 ```bash
-python3 azure-sharepoint-secret-search.py   --token GRAPH_ACCESS_TOKEN   --drive-id DRIVE_ID   --item-id ITEM_ID
+python3 azure-sharepoint-secret-search.py \
+  --token JWT_ACCESS_TOKEN \
+  --drive-id DRIVE_ID \
+  --item-id ITEM_ID
 ```
 
 ### Use filename filters when dumping a drive
 ```bash
-python3 azure-sharepoint-secret-search.py   --token GRAPH_ACCESS_TOKEN   --drive-id DRIVE_ID   --keywords env,json,pdf
+python3 azure-sharepoint-secret-search.py \
+  --token JWT_ACCESS_TOKEN \
+  --drive-id DRIVE_ID \
+  --keywords env,json,pdf
 ```
 
 ---
@@ -196,7 +219,7 @@ It provides visibility into:
 
 ### Example usage
 ```bash
-python3 azure-user-enumerator.py --token GRAPH_ACCESS_TOKEN
+python3 azure-user-enumerator.py --token JWT_ACCESS_TOKEN
 ```
 
 ---
